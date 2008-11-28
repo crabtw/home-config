@@ -1,0 +1,16 @@
+Config {
+    font = "xft:AR PL New Sung Mono-10",
+    bgColor = "black",
+    fgColor = "grey",
+    position = TopW L 90,
+    commands = [
+        Run Battery [] 300,
+        Run Thermal "THM0" ["-t", "<temp>°C"] 300,
+        Run Thermal "THM1" ["-t", "<temp>°C"] 300,
+        Run Date "%Y-%m-%d, %H:%M" "date" 300,
+        Run StdinReader
+    ],
+    sepChar = "%",
+    alignSep = "}{",
+    template = "%StdinReader% }{ <fc=#87CEFA>%battery%</fc> | <fc=#00FF7F>%THM0%, %THM1%</fc> | <fc=#FFA500>%date%</fc>"
+}
