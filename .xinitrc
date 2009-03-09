@@ -1,5 +1,7 @@
-export LANG="zh_TW.UTF-8"
-export LC_ALL="zh_TW.UTF-8"
+xset fp+ ~/.fonts/bitmap
+
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 export XMODIFIERS="@im=SCIM"
 export GTK_IM_MODULE="scim"
@@ -12,7 +14,5 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true \
 xsetroot -cursor_name left_ptr -fg gray -bg black -solid black
 exec xmonad
 
-#stalonetray 
-
 # KDE
-#startkde
+#exec startkde
