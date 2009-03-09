@@ -33,5 +33,6 @@ main = do xmobar <- spawnPipe "xmobar"
             keys = myKeys,
             modMask = mod4Mask,
             manageHook = myManageHook,
-            startupHook = setWMName "LG3D"
+            startupHook = setWMName "LG3D",
+            terminal = "mlterm"
           }
