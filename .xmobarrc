@@ -1,8 +1,9 @@
 Config {
-    font = "xft:AR PL New Sung Mono-10",
+    font = "xft:Unibit",
     bgColor = "black",
     fgColor = "grey",
     position = TopW L 90,
+    lowerOnStart = True,
     commands = [
         Run Battery [] 300,
         Run Thermal "THM0" ["-t", "<temp>°C"] 300,

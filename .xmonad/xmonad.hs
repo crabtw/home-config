@@ -10,7 +10,7 @@ import XMonad.Layout.ToggleLayouts
 import XMonad.Util.Run (spawnPipe)
 
 import qualified Data.Map as M
-import System.IO (hPutStrLn)
+import System.IO.UTF8 (hPutStrLn)
 
 myPP bar = xmobarPP {
             ppOutput = hPutStrLn bar
