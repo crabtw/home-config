@@ -1,0 +1,8 @@
+ISO8859_1 = Inconsolata-iso10646-1;
+
+GBK = AR PL New Kai-iso10646-1;
+BIG5 = AR PL New Kai-iso10646-1;
+
+JISX0208_1978 = IPAMonaGothic-iso10646-1;
+JISX0208_1983 = IPAMonaGothic-iso10646-1;
+JISX0208_1990 = IPAMonaGothic-iso10646-1;
