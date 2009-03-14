@@ -1,7 +1,7 @@
 xset fp+ ~/.fonts/bitmap
 
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
+export LANG="zh_TW.UTF-8"
+export LC_ALL="zh_TW.UTF-8"
 
 export XMODIFIERS="@im=SCIM"
 export GTK_IM_MODULE="scim"
