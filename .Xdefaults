@@ -1,0 +1,9 @@
+URxvt*termName: rxvt
+URxvt*scrollBar: false
+
+URxvt*background: black
+URxvt*foreground: lightgray
+
+URxvt*font: xft:Inconsolata:pixelsize=16,\
+            xft:AR PL New Sung:pixelsize=16,\
+            xft:IPAMonaGothic:pixelsize=16
