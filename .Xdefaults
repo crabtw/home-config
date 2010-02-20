@@ -1,3 +1,4 @@
+URxvt.termName: rxvt
 URxvt.scrollBar: false
 
 URxvt.background: black
