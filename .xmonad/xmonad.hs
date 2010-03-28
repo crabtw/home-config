@@ -10,7 +10,7 @@ import XMonad.Layout.ToggleLayouts
 import XMonad.Util.Run (spawnPipe)
 
 import qualified Data.Map as M
-import System.IO (hPutStrLn)
+import System.IO
 
 myPP bar = xmobarPP {
             ppOutput = hPutStrLn bar
@@ -27,6 +27,7 @@ myKeys x = M.union (keys defaultConfig x) (M.fromList (newKeys x))
 myManageHook = manageDocks <+> manageHook defaultConfig
 
 main = do xmobar <- spawnPipe "xmobar"
+          hSetEncoding xmobar utf8
           xmonad $ defaultConfig {
             layoutHook = myLayout,
             logHook = dynamicLogWithPP $ myPP xmobar,
