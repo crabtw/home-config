@@ -12,7 +12,6 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true \
   --expand true --width 10 --transparent true --tint 0x000000 --height 18 &
 xsetroot -cursor_name left_ptr -fg gray -bg black -solid black
 scim -d
-urxvtd -q -f -o
 exec xmonad
 
 # KDE
