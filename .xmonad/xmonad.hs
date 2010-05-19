@@ -27,7 +27,6 @@ myKeys x = M.union (keys defaultConfig x) (M.fromList (newKeys x))
 myManageHook = manageDocks <+> manageHook defaultConfig
 
 main = do xmobar <- spawnPipe "xmobar"
-          hSetEncoding xmobar utf8
           xmonad $ defaultConfig {
             layoutHook = myLayout,
             logHook = dynamicLogWithPP $ myPP xmobar,
