@@ -13,5 +13,5 @@ set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,big5,latin1
 
-colorscheme torte
+"colorscheme torte
 set hlsearch

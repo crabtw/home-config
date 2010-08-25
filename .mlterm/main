@@ -1,0 +1,7 @@
+use_anti_alias = true
+receive_string_via_ucs = true
+not_use_unicode_font = true
+
+fg_color = lightgray
+bg_color = black
+scrollbar_mode = none
