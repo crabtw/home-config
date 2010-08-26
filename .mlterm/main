@@ -1,4 +1,5 @@
 termtype = mlterm
+mod_meta_mode = esc
 
 use_anti_alias = true
 receive_string_via_ucs = true
