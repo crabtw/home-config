@@ -1,3 +1,4 @@
+termtype = mlterm
 mod_meta_mode = esc
 
 use_anti_alias = true
