@@ -17,14 +17,14 @@ myPP bar = xmobarPP {
            }
 
 myLayout = toggleLayouts (noBorders Full) defaultLayout
-    where defaultLayout = avoidStruts $
-                          smartBorders $
-                          layoutHook defaultConfig
+    where defaultLayout = avoidStruts $ smartBorders layout
+          layout = Mirror tiled ||| Full ||| tiled
+            where tiled = Tall 1 (3/100) (1/2)
 
 myKeys x = M.union (keys defaultConfig x) (M.fromList (newKeys x))
     where newKeys x = [((modMask x, xK_f), sendMessage ToggleLayout)]
 
-myManageHook = manageDocks <+> manageHook defaultConfig
+myManageHook = manageDocks
 
 main = do xmobar <- spawnPipe "xmobar"
           xmonad $ defaultConfig {
@@ -33,6 +33,5 @@ main = do xmobar <- spawnPipe "xmobar"
             keys = myKeys,
             modMask = mod4Mask,
             manageHook = myManageHook,
-            startupHook = setWMName "LG3D",
-            terminal = "mlterm"
+            terminal = "urxvt"
           }

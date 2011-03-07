@@ -4,7 +4,6 @@ set cindent
 set expandtab
 set softtabstop=4
 set shiftwidth=4
-"set nowrap
 
 set fileformat=unix
 set fileformats=unix,dos,mac
@@ -15,4 +14,3 @@ set fileencodings=ucs-bom,utf-8,big5,latin1
 
 set hlsearch
 colorscheme torte
-set t_Co=256
