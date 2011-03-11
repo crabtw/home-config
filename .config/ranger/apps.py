@@ -11,6 +11,9 @@ class CustomApplications(DefaultApps):
         if f.image:
             return self.app_feh(c)
 
+        if f.video:
+            return self.app_smplayer(c)
+
         return DefaultApps.app_default(self, c)
 
     def app_feh(self, c):
@@ -19,4 +22,4 @@ class CustomApplications(DefaultApps):
 
         return tup('feh', '--start-at', c.file.basename, '--fullscreen', *images)
 
-CustomApplications.generic('okular', flags='d')
+CustomApplications.generic('okular', 'smplayer', flags='d')

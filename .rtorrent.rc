@@ -2,6 +2,7 @@
 # ~/.rtorrent.rc and enable/modify the options as needed. Remember to
 # uncomment the options you wish to enable.
 
+# Preallocate files; reduces defragmentation on filesystems.
 system.file_allocate.set = yes
 
 # Maximum and minimum number of peers to connect to per torrent.
