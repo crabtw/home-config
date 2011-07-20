@@ -21,8 +21,11 @@ myLayout = toggleLayouts (noBorders Full) defaultLayout
           layout = Mirror tiled ||| Full ||| tiled
             where tiled = Tall 1 (3/100) (1/2)
 
-myKeys x = M.union (keys defaultConfig x) (M.fromList (newKeys x))
-    where newKeys x = [((modMask x, xK_f), sendMessage ToggleLayout)]
+myKeys x = M.union (newKeys x) (keys defaultConfig x)
+    where newKeys x = M.fromList
+            [ ((modMask x, xK_f), sendMessage ToggleLayout)
+            , ((modMask x, xK_p), spawn "dmenu_run")
+            ]
 
 myManageHook = manageDocks
 
