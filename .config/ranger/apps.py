@@ -5,13 +5,16 @@ class CustomApplications(DefaultApps):
     def app_default(self, c):
         f = c.file
 
-        if f.extension in ('pdf', 'ps'):
+        if f.extension in ('pdf', 'ps', "eps"):
             return self.app_okular(c)
+
+        if f.extension in ('doc', 'ppt'):
+            return self.app_libreoffice(c)
 
         if f.image:
             return self.app_feh(c)
 
-        if f.video:
+        if f.video or f.extension in ('rmvb'):
             return self.app_smplayer(c)
 
         return DefaultApps.app_default(self, c)
@@ -20,6 +23,6 @@ class CustomApplications(DefaultApps):
         c.flags += 'd'
         images = (f.basename for f in self.fm.env.cwd.files if f.image)
 
-        return tup('feh', '--start-at', c.file.basename, '--fullscreen', *images)
+        return tup('feh', '--start-at', c.file.basename, '-F', '-Y', *images)
 
-CustomApplications.generic('okular', 'smplayer', flags='d')
+CustomApplications.generic('libreoffice', 'okular', 'smplayer', flags='d')
