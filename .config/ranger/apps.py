@@ -8,7 +8,7 @@ class CustomApplications(DefaultApps):
         if f.extension in ('pdf', 'ps', "eps"):
             return self.app_okular(c)
 
-        if f.extension in ('doc', 'ppt'):
+        if f.extension in ('doc', 'ppt', 'docx', 'pptx', 'xlsx'):
             return self.app_libreoffice(c)
 
         if f.image:
