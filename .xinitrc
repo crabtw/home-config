@@ -13,6 +13,7 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true \
 xsetroot -cursor_name left_ptr -fg gray -bg black -solid black
 xmodmap ~/.xmodmaprc
 ibus-daemon -d --xim
+urxvtd -q -o -f
 exec xmonad
 
 # KDE
