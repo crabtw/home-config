@@ -36,5 +36,5 @@ main = do xmobar <- spawnPipe "xmobar"
             keys = myKeys,
             modMask = mod4Mask,
             manageHook = myManageHook,
-            terminal = "urxvtc"
+            terminal = "urxvt"
           }
