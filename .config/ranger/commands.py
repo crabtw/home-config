@@ -2,5 +2,7 @@ from ranger.api.commands import *
 
 class extract(Command):
     def execute(self):
-        for f in self.fm.env.get_selection():
+        cwd = self.fm.env.cwd
+        for f in cwd.get_selection():
             self.fm.run(['/usr/bin/aunpack', f.basename])
+            cwd.mark_item(f, False)
