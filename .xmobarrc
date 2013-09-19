@@ -5,12 +5,10 @@ Config {
     position = TopW L 90,
     lowerOnStart = True,
     commands = [
-        Run Battery [] 300,
-        Run CoreTemp ["-t", "<core0>°C, <core1>°C"] 100,
         Run Date "%Y-%m-%d, %H:%M" "date" 300,
         Run StdinReader
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = "%StdinReader% }{ <fc=#87CEFA>%battery%</fc> | <fc=#00FF7F>%coretemp%</fc> | <fc=#FFA500>%date%</fc>"
+    template = "%StdinReader% }{ <fc=#FFA500>%date%</fc>"
 }
