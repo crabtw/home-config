@@ -23,7 +23,7 @@ hi link atsCommentEOF Comment
 
 " Common definitions
 syn match atsTypeDecl ":" skipwhite nextgroup=atsTypeType
-syn match atsTypeType "[[:alnum:]_]\+" contained
+syn match atsTypeType "[[:alnum:]_@]\+" contained
 
 hi link atsTypeType Type
 
@@ -36,9 +36,9 @@ hi link atsString String
 
 
 " Functions
-syn keyword Keyword extern implement
+syn keyword Keyword extern implement primplement implmnt primplmnt
 
-syn match atsFun "\<\(fn\|fun\)\>" skipwhite nextgroup=atsTemplArgs,atsFunName
+syn match atsFun "\<\(fn\|fnx\|fun\|prfun\|prfn\|praxi\|castfn\)\>" skipwhite nextgroup=atsTemplArgs,atsFunName
 syn region atsTemplArgs start="{" end="}" contained skipwhite contains=atsArgList
 syn match atsFunName "[[:alnum:]_]\+" contained skipwhite nextgroup=atsFunStaArgs,atsFunArgs,atsFunRet
 syn region atsFunStaArgs start="{" end="}" contained skipwhite contains=atsArgList
@@ -66,19 +66,27 @@ hi link atsLoadCmd Keyword
 hi link atsLoadPath Include
 
 " C blocks
-syn region atsCReg start="%{[#$^]\?" end="%}"
-hi link atsCReg PreProc
+syn include @atsC syntax/c.vim
+unlet b:current_syntax
+syn region embC start="%{[#$^]" keepend end="%}" contains=@atsC
 
 syn match Include "#include\>.*"
 syn match Define "#define\>.*"
+syn match PreProc "#\(if\|then\|else\|endif\|print\)\>"
 
 
 " TODO: improperly parsed syntax
 syn keyword Conditional if then else case case+ of =>
 syn keyword Statement let where in begin end and
 syn keyword Repeat for while
-syn keyword Keyword typedef viewtypedef true false val var
+syn keyword Keyword true false val var prval overload symintr macdef prefix infixl infixr infix postfix local with
 syn keyword Operator _
+
+syn match Typedef "\<\(sta\|sort\|prop\|view\|tkin\)def\>"
+syn match Typedef "\<\(view\|v\)\?typedef\>"
+syn match Typedef "\<abs\(view\|v\)\?t[@0]\?ype\>"
+syn match Typedef "\<abs\(prop\|view\)\>"
+syn keyword Structure classdec datasort dataprop dataview datatype dataviewtype
 
 let b:current_syntax = "ats"
 
