@@ -9,84 +9,102 @@ if exists("b:current_syntax") && b:current_syntax == "ats"
   finish
 endif
 
-syn case match
+" Delimiter
+syn match atsDelimiter "(\|)\|\[\|\]\|,\|;\|_\|{\|}"
+
+" Operators
+syn match atsOperator "+\|-\|/\|*\|=\|\^\|&\||\|!\|>\|<\|%\|\~"
 
 " Comments
 syn match atsCommentCPP "\/\/.*"
 syn region atsCommentOC start="(\*" end="\*)" contains=atsCommentOC
 syn region atsCommentEOF start="\/\/\/\/" end="\%$"
 
-hi link atsCommentCPP Comment
-hi link atsCommentOC Comment
-hi link atsCommentEOF Comment
-
-
-" Common definitions
-syn match atsTypeDecl ":" skipwhite nextgroup=atsTypeType
-syn match atsTypeType "[[:alnum:]_@]\+" contained
-
-hi link atsTypeType Type
-
 " Strings
 syn match atsCharacter "'\\\d\d\d'\|'\\[\'ntbr]'\|'.'"
 syn region atsString start=+"+ skip=+\\\\\|\\"+ end=+"+
 
-hi link atsCharacter Character
-hi link atsString String
+" Booleans
+syn keyword atsBoolean true false
 
+" Number
+syn match atsNumber "\<[0-9]\+[LlUu]\?\>\|\<0[xX][0-9a-fA-F]\+[LlUu]\?\>\|\<0[oO][0-7]\+[LlUu]\?\>"
+syn match atsNumber "\<[0-9]\+\.[0-9]\+\([eE][-+]\=[0-9]\+\)\=[fFlL]\>"
+
+" Identifier
+syn match atsIdentifier "[A-Za-z_][0-9A-Za-z_\']*"
 
 " Functions
-syn keyword Keyword extern implement primplement implmnt primplmnt
-
-syn match atsFun "\<\(fn\|fnx\|fun\|prfun\|prfn\|praxi\|castfn\)\>" skipwhite nextgroup=atsTemplArgs,atsFunName
-syn region atsTemplArgs start="{" end="}" contained skipwhite contains=atsArgList
-syn match atsFunName "[[:alnum:]_]\+" contained skipwhite nextgroup=atsFunStaArgs,atsFunArgs,atsFunRet
-syn region atsFunStaArgs start="{" end="}" contained skipwhite contains=atsArgList
-syn region atsFunArgs start="(" end=")" contained skipwhite contains=atsArgList
-syn match atsFunRet "" contained skipwhite nextgroup=atsTypeDecl
-
-hi link atsFun Keyword
-hi link atsFunName Function
-
-" Argument lists
-syn match atsArgList "[[:alnum:]_]\+" contained skipwhite nextgroup=atsTypeDecl,atsArgListComma
-syn match atsArgListComma "," contained skipwhite nextgroup=atsArgList
-
-hi link atsArgList Identifier
-
+syn keyword atsStorage extern
+syn keyword atsFun fn fnx fun prfun prfn praxi castfn fn fnx fun prfun prfn praxi castfn implement primplement implmnt primplmnt skipwhite nextgroup=atsTemplArgs,atsFunName
+syn region atsTemplArgs start="{" end="}" contained skipwhite nextgroup=atsFunName
+syn match atsFunName "[[:alnum:]_]\+" contained
 
 " Includes
 syn match atsLoadCmd "\<\(sta\|dyn\)load\>" skipwhite nextgroup=atsLoadNS,atsLoadPath
 syn match atsLoadNS "[[:alnum:]_]\+" contained skipwhite nextgroup=atsLoadEq
 syn match atsLoadEq "=" contained skipwhite nextgroup=atsLoadPath
 syn region atsLoadPath start=+"+ end=+"+ contained
-
-hi link atsLoadNS Identifier
-hi link atsLoadCmd Keyword
-hi link atsLoadPath Include
+syn match atsModNS "\$\w\(\w\)*\."he=e-1,me=e-1 nextgroup=atsIdentifier
 
 " C blocks
 syn include @atsC syntax/c.vim
 unlet b:current_syntax
-syn region embC start="%{[#$^]" keepend end="%}" contains=@atsC
+syn region atsEmbC matchgroup=atsEmbCDelim start="%{[#$^]" keepend end="%}" contains=@atsC
 
-syn match Include "#include\>.*"
-syn match Define "#define\>.*"
-syn match PreProc "#\(if\|then\|else\|endif\|print\)\>"
-
+" Preprocessing
+syn match atsInclude "#include\>.*"
+syn match atsDefine "#define\>.*"
+syn match atsPreProc "#\(if\|then\|else\|endif\|print\)\>"
 
 " TODO: improperly parsed syntax
-syn keyword Conditional if then else case case+ of =>
-syn keyword Statement let where in begin end and
-syn keyword Repeat for while
-syn keyword Keyword true false val var prval overload symintr macdef prefix infixl infixr infix postfix local with
-syn keyword Operator _
+syn keyword atsConditional if then else case of
+syn keyword atsStatement let where in begin end and
+syn keyword atsRepeat for while
+syn keyword atsKeyword prefix infixl infixr infix postfix
+syn keyword atsKeyword val var prval overload symintr macdef local with when
 
-syn match Typedef "\<\(sta\|sort\|prop\|view\|tkin\)def\>"
-syn match Typedef "\<\(view\|v\)\?typedef\>"
-syn match Typedef "\<abs\(view\|v\)\?t[@0]\?ype\>"
-syn match Typedef "\<abs\(prop\|view\)\>"
-syn keyword Structure classdec datasort dataprop dataview datatype dataviewtype
+syn match atsTypedef "\<\(sta\|sort\|prop\|view\|tkin\)def\>"
+syn match atsTypedef "\<\(view\|v\)\?typedef\>"
+syn match atsTypedef "\<abs\(view\|v\)\?t[@0]\?ype\>"
+syn match atsTypedef "\<abs\(prop\|view\)\>"
+syn keyword atsStructure classdec datasort dataprop dataview datatype dataviewtype
+
+" link
+hi link atsCommentCPP Comment
+hi link atsCommentOC Comment
+hi link atsCommentEOF Comment
+
+hi link atsEmbCDelim Delimiter
+hi link atsDelimiter Delimiter
+
+hi link atsOperator Operator
+
+hi link atsCharacter Character
+hi link atsString String
+hi link atsBoolean Boolean
+hi link atsNumber Number
+
+hi link atsStorage StorageClass
+hi link atsFun Keyword
+hi link atsFunName Function
+
+hi link atsLoadNS Identifier
+hi link atsLoadCmd Keyword
+hi link atsLoadPath Include
+hi link atsModNS Include
+
+hi link atsInclude Include
+hi link atsDefine Define
+hi link atsPreProc PreProc
+
+hi link atsConditional Conditional
+hi link atsStatement Statement
+hi link atsRepeat Repeat
+hi link atsKeyword Keyword
+
+hi link atsTypedef Typedef
+hi link atsStructure Structure
 
 let b:current_syntax = "ats"
 
