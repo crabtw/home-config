@@ -10,13 +10,13 @@ if exists("b:current_syntax") && b:current_syntax == "ats"
 endif
 
 " Delimiter
-syn match atsDelimiter "(\|)\|\[\|\]\|,\|;\|_\|{\|}"
+syn match atsDelimiter "(\|)\|\[\|\]\|,\|;\|_\|{\|}\||"
 
 " Operators
-syn match atsOperator "+\|-\|/\|*\|=\|\^\|&\||\|!\|>\|<\|%\|\~"
+syn match atsOperator "+\|-\|/\|*\|=\|\^\|&\|!\|>\|<\|%\|\~\|@\|||\|:"
 
 " Comments
-syn match atsCommentCPP "\/\/.*"
+syn region atsCommentCPP start="//" end="$" keepend
 syn region atsCommentOC start="(\*" end="\*)" contains=atsCommentOC
 syn region atsCommentEOF start="\/\/\/\/" end="\%$"
 
@@ -32,12 +32,27 @@ syn match atsNumber "\<[0-9]\+[LlUu]\?\>\|\<0[xX][0-9a-fA-F]\+[LlUu]\?\>\|\<0[oO
 syn match atsNumber "\<[0-9]\+\.[0-9]\+\([eE][-+]\=[0-9]\+\)\=[fFlL]\>"
 
 " Identifier
-syn match atsIdentifier "[A-Za-z_][0-9A-Za-z_\']*"
+syn match atsIdentifier "[A-Za-z_][0-9A-Za-z_]*"
+
+" Types
+syn match atsTypeType ":" skipwhite nextgroup=atsEffect,atsType
+syn match atsTypeType "->" skipwhite nextgroup=atsType
+syn match atsTypeType "-" nextgroup=atsEffect
+syn region atsEffect start="<" end=">" contained skipwhite nextgroup=atsType
+syn match atsType "[A-Za-z_][0-9A-Za-z_]*" contained
+
+" Typedef
+syn match atsTypedef "\<\(sta\|sort\|prop\|view\|tkin\)def\>" skipwhite nextgroup=atsTypeName
+syn match atsTypedef "\<\(view\|v\)\?typedef\>" skipwhite nextgroup=atsTypeName
+syn match atsTypedef "\<abs\(view\|v\)\?t[@0]\?ype\>" skipwhite nextgroup=atsTypeName
+syn match atsTypedef "\<abs\(prop\|view\)\>" skipwhite nextgroup=atsTypeName
+syn keyword atsStructure classdec datasort dataprop dataview datatype dataviewtype skipwhite nextgroup=atsTypeName
+syn match atsTypeName "[A-Za-z_][0-9A-Za-z_]*" contained
 
 " Functions
 syn keyword atsStorage extern
 syn keyword atsFun fn fnx fun prfun prfn praxi castfn fn fnx fun prfun prfn praxi castfn implement primplement implmnt primplmnt skipwhite nextgroup=atsTemplArgs,atsFunName
-syn region atsTemplArgs start="{" end="}" contained skipwhite nextgroup=atsFunName
+syn region atsTemplArgs matchgroup=atsDelimiter start="{" end="}" contained skipwhite nextgroup=atsFunName
 syn match atsFunName "[[:alnum:]_]\+" contained
 
 " Includes
@@ -50,32 +65,25 @@ syn match atsModNS "\$\w\(\w\)*\."he=e-1,me=e-1 nextgroup=atsIdentifier
 " C blocks
 syn include @atsC syntax/c.vim
 unlet b:current_syntax
-syn region atsEmbC matchgroup=atsEmbCDelim start="%{[#$^]" keepend end="%}" contains=@atsC
+syn region atsEmbC matchgroup=atsDelimiter start="%{[#$^]" keepend end="%}" contains=@atsC
 
 " Preprocessing
 syn match atsInclude "#include\>.*"
 syn match atsDefine "#define\>.*"
 syn match atsPreProc "#\(if\|then\|else\|endif\|print\)\>"
 
-" TODO: improperly parsed syntax
+" other keywords
 syn keyword atsConditional if then else case of
 syn keyword atsStatement let where in begin end and
 syn keyword atsRepeat for while
 syn keyword atsKeyword prefix infixl infixr infix postfix
 syn keyword atsKeyword val var prval overload symintr macdef local with when
 
-syn match atsTypedef "\<\(sta\|sort\|prop\|view\|tkin\)def\>"
-syn match atsTypedef "\<\(view\|v\)\?typedef\>"
-syn match atsTypedef "\<abs\(view\|v\)\?t[@0]\?ype\>"
-syn match atsTypedef "\<abs\(prop\|view\)\>"
-syn keyword atsStructure classdec datasort dataprop dataview datatype dataviewtype
-
 " link
 hi link atsCommentCPP Comment
 hi link atsCommentOC Comment
 hi link atsCommentEOF Comment
 
-hi link atsEmbCDelim Delimiter
 hi link atsDelimiter Delimiter
 
 hi link atsOperator Operator
@@ -103,8 +111,10 @@ hi link atsStatement Statement
 hi link atsRepeat Repeat
 hi link atsKeyword Keyword
 
+hi link atsType Type
 hi link atsTypedef Typedef
 hi link atsStructure Structure
+hi link atsTypeName Identifier
 
 let b:current_syntax = "ats"
 
