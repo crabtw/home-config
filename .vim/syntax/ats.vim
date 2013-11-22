@@ -43,14 +43,14 @@ syn keyword atsType float double ldouble
 syn keyword atsType intptr uintptr size_t ssize_t
 syn keyword atsType int8 uint8 int16 uint16 int32 uint32 int64 uint64
 syn keyword atsType string strptr stropt
-syn keyword atsType addr bool byte ptr void lazy
+syn keyword atsType addr bool byte ptr void lazy eff
 
 " Typedef
 syn match atsTypedef "\<\(sta\|sort\|prop\|view\|tkin\)def\>" skipwhite nextgroup=atsTypeName
 syn match atsTypedef "\<\(view\|v\)\?typedef\>" skipwhite nextgroup=atsTypeName
 syn match atsTypedef "\<abs\(view\|v\)\?t[@0]\?ype\>" skipwhite nextgroup=atsTypeName
 syn match atsTypedef "\<abs\(prop\|view\)\>" skipwhite nextgroup=atsTypeName
-syn keyword atsTypedef assume skipwhite nextgroup=atsTypeName
+syn keyword atsTypedef assume stacst skipwhite nextgroup=atsTypeName
 syn keyword atsStructure classdec datasort dataprop dataview datatype datavtype dataviewtype skipwhite nextgroup=atsTypeName
 syn match atsTypeName "[[:alnum:]_]\+" contained
 
@@ -74,19 +74,29 @@ unlet b:current_syntax
 syn region atsEmbC matchgroup=atsDelimiter start="%{[#$^]" keepend end="%}" contains=@atsC
 
 " Preprocessing
-syn match atsInclude "#include\>.*"
-syn match atsDefine "#define\>.*"
-syn match atsPreProc "#\(if\|then\|else\|endif\|print\)\>"
+syn match atsInclude "#include\>"
+syn match atsDefine "#define\>"
+syn match atsPreCondit "#\(elif\|elifdef\|elifndef\|else\|endif\|if\|ifdef\|ifndef\|then\)\>"
+syn match atsPreProc "#\(assert\|error\|print\|undef\)\>"
 
 " other keywords
-syn keyword atsConditional if then else case of
-syn keyword atsStatement let where in begin end and
-syn keyword atsRepeat for while
-syn keyword atsException exception
-syn keyword atsKeyword prefix infixl infixr infix postfix
-syn keyword atsKeyword val var prval overload symintr macdef local with when
-syn match atsKeyword "\$[[:alnum:]_]\+\s*[("]"he=e-1,me=e-1
-syn match atsKeyword "[[:alnum:]_]\+@[^[:alnum:]]"he=e-1,me=e-1
+syn keyword atsConditional if then else case of sif scase
+syn keyword atsStatement let where in begin end and local
+syn keyword atsException try exception
+syn keyword atsKeyword prefix infixl infixr infix postfix nonfix
+syn keyword atsKeyword val var prval prvar overload symintr macdef with when lam llam
+syn match atsKeyword "\$\(arrpsz\|arrptrsize\)\>"
+syn match atsKeyword "\$\(delay\|ldelay\)\>"
+syn match atsKeyword "\$\(effmask\|effmask_ntm\|effmask_exn\|effmask_ref\|effmask_wrt\|effmask_all\)\>"
+syn match atsKeyword "\$\(extern\|extkind\|extype\|extype_struct\|extval\|extfcall\)\>"
+syn match atsKeyword "\$\(lst\|lst_t\|lst_vt\|list\|list_t\|list_vt\)\>"
+syn match atsKeyword "\$\(rec\|rec_t\|rec_vt\|record\|record_t\|record_vt\)\>"
+syn match atsKeyword "\$\(tup\|tup_t\|tup_vt\|tuple\|tuple_t\|tuple_vt\)\>"
+syn match atsKeyword "\$\(break\|continue\|raise\)\>"
+syn match atsKeyword "\$\(myfilename\|mylocation\|myfunction\)\>"
+syn match atsKeyword "\$\(showtype\)\>"
+syn match atsKeyword "\$\(vcopyenv_v\|vcopyenv_vt\)\>"
+syn match atsKeyword "\<\(fold\|free\|addr\|view\|lam\|llam\)@"
 
 " link
 hi link atsCommentCPP Comment
@@ -114,6 +124,7 @@ hi link atsModNS Include
 
 hi link atsInclude Include
 hi link atsDefine Define
+hi link atsPreCondit PreCondit
 hi link atsPreProc PreProc
 
 hi link atsConditional Conditional
