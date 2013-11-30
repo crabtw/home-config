@@ -18,6 +18,7 @@ syn match atsDelimiter "(\|)\|\[\|\]\|,\|;\|{\|}\|[@'][({(\[]"
 " Comments
 syn region atsCommentCPP start="//" end="$" keepend
 syn region atsCommentOC start="(\*" end="\*)" contains=atsCommentOC
+syn region atsCommentC start="/\*" end="\*/" contains=atsCommentC
 syn region atsCommentEOF start="\/\/\/\/" end="\%$"
 
 " Strings
