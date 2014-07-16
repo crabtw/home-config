@@ -40,7 +40,7 @@ syn match atsIdentifier "[A-Za-z_][A-Za-z0-9_$]*"
 
 " Types
 syn match atsType "\(view\|v\)\?t[0@]\?ype"
-syn keyword atsType view vt0p t0p tkind real types
+syn keyword atsType view vt0p t0p tkind real types prop
 syn keyword atsType sint int lint llint usint uint ulint ullint
 syn keyword atsType char uchar schar
 syn keyword atsType float double ldouble
@@ -60,7 +60,7 @@ syn keyword atsStructure classdec datasort dataprop dataview datatype datavtype 
 syn match atsTypeName "[A-Za-z_][A-Za-z0-9_$]*" contained
 
 " Functions
-syn keyword atsStorage extern
+syn keyword atsStorage extern static
 syn keyword atsFun fn fnx fun prfun prfn praxi castfn fn fnx fun prfun prfn praxi castfn implement primplement implmnt primplmnt skipwhite nextgroup=atsTemplArgs,atsFunName
 syn region atsTemplArgs matchgroup=atsDelimiter start="{" end="}" contained skipwhite contains=atsArgSep,atsType nextgroup=atsTemplArgs,atsFunName
 syn match atsArgSep "," contained
