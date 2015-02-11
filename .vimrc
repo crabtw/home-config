@@ -1,4 +1,6 @@
 syntax on
+set nocompatible
+set ruler
 
 set expandtab
 set softtabstop=4
@@ -22,6 +24,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'jvoorhis/coq.vim'
+Plugin 'idris-hackers/idris-vim'
 Plugin 'crabtw/my.vim'
 
 call vundle#end()
