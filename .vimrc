@@ -1,4 +1,3 @@
-syntax on
 set nocompatible
 set ruler
 
@@ -30,3 +29,4 @@ Plugin 'crabtw/my.vim'
 call vundle#end()
 
 filetype plugin indent on
+syntax on
