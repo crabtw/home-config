@@ -14,4 +14,16 @@ set fileencodings=ucs-bom,utf-8,big5,latin1
 set hlsearch
 colorscheme torte
 
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'jvoorhis/coq.vim'
+Plugin 'crabtw/my.vim'
+
+call vundle#end()
+
 filetype plugin indent on
