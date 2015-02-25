@@ -1,0 +1,3 @@
+map <F2> :emenu Tools.Tamper Data<CR>
+set gui=nonavigation
+set focuscontent=true
