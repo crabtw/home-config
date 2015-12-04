@@ -14,12 +14,15 @@ export XMODIFIERS="@im=ibus"
 export GTK_IM_MODULE="ibus"
 export QT_IM_MODULE="ibus"
 
+# common
+xrdb -merge -I$HOME ~/.Xresources
+xmodmap ~/.xmodmaprc
+ibus-daemon -dxr
+
 # xmonad
 trayer --edge top --align right --SetDockType true --SetPartialStrut true \
   --expand true --width 10 --transparent true --tint 0x000000 --height 18 &
 xsetroot -cursor_name left_ptr -fg gray -bg black -solid black
-xmodmap ~/.xmodmaprc
-ibus-daemon -d -x
 exec xmonad
 
 # KDE
