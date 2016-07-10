@@ -21,7 +21,7 @@ myLayout = toggleLayouts (noBorders Full) defaultLayout
           layout = Mirror tiled ||| Full ||| tiled
             where tiled = Tall 1 (3/100) (1/2)
 
-myKeys x = M.union (newKeys x) (keys defaultConfig x)
+myKeys x = M.union (newKeys x) (keys def x)
     where newKeys x = M.fromList
             [ ((modMask x, xK_f), sendMessage ToggleLayout)
             , ((modMask x, xK_p), spawn "dmenu_run")
@@ -30,7 +30,7 @@ myKeys x = M.union (newKeys x) (keys defaultConfig x)
 myManageHook = manageDocks
 
 main = do xmobar <- spawnPipe "xmobar"
-          xmonad $ defaultConfig {
+          xmonad $ def {
             layoutHook = myLayout,
             logHook = dynamicLogWithPP $ myPP xmobar,
             keys = myKeys,
